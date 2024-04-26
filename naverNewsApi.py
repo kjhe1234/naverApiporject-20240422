@@ -7,6 +7,7 @@ from PyQt5 import uic
 from naverSearchApi import *
 
 import webbrowser
+import datetime
 
 form_class = uic.loadUiType("ui/search.ui")[0]  # 외부에서 ui 불러오기  내부에서 불러오면 1
 
@@ -55,7 +56,7 @@ class MainWindow(QMainWindow, form_class):
             newsTitle = newsTitle.replace('&quot','').replace(';','').replace('<b>','').replace('</b>','')
             newsLink = news['originallink'] # 뉴스의 오리지널 url 링크
             newsDate = news['pubDate'] # 뉴스 게시일
-            newsDate = newsDate[0:25]
+            newsDate = news['pubDate'][0:25]
 
             self.result_table.setItem(i, 0, QTableWidgetItem(newsTitle))
             self.result_table.setItem(i, 1, QTableWidgetItem(newsLink))
@@ -76,11 +77,11 @@ class MainWindow(QMainWindow, form_class):
 
 
 
-
-app = QApplication(sys.argv)
-win = MainWindow()
-win.show()
-sys.exit(app.exec_())
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    win = MainWindow()
+    win.show()
+    sys.exit(app.exec_())
 
 
 
