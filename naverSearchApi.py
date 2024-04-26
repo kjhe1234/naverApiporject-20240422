@@ -1,6 +1,8 @@
 from urllib.request import *
+from urllib.parse import quote
 import json
 import datetime
+
 
 class NaverApi:
     def getRequestCode(self, url):
@@ -25,7 +27,7 @@ class NaverApi:
     def getNaverSearch(self, node, keyword,start,display):
         baseUrl = "https://openapi.naver.com/v1/search/" # 네이버 api 기본 url
         node = f"{node}.json"
-        params = f"?query={keyword}&start={start}&display={display}"
+        params = f"?query={quote(keyword)}&start={start}&display={display}"
 
         url = baseUrl+node+params
 
@@ -34,7 +36,7 @@ class NaverApi:
         if result != None:  # 네이버에서 결과 정상적으로 도착
             return json.loads(result)  # json 변환해서 반환
         else:
-            print("네이버 응답 실패! 에러발생!")
+            print("네이버 응답 실패! 에러 발생!")
             return None
 
 
